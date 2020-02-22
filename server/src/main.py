@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import pyrebase
 
 firebaseConfig = {
@@ -26,6 +26,14 @@ def hello_world():
     print("test")
     print(users.val())
     return "<h1>Hello Wolrd</h1>"
+    
+@app.route('/new_entry', METHOD=['GET', 'POST'])
+def new_entry():
+    if request.method == "GET":
+        return send_from_directory("forms", "new_entry.html")
+    print(request.form)
+    pass
+
 
 if __name__ == "__main__":
     app.run(debug=True)

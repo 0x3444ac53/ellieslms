@@ -1,0 +1,45 @@
+body {
+	font-family: arial, helvetica, sans-serif;
+	font-size:14px;
+	color: black;
+	background-color: #f3ffec;
+	/*background-color: #f7ffed*/
+	margin: 20px;
+	padding: 0;
+}
+
+p {
+	line-height: 21px;
+}
+
+h1 {
+	
+}
+
+h2 {
+	fds
+}
+
+img {
+	border-style: dashed;
+	border-width: 2px;
+	border-color: #cc;
+}
+
+a {
+	text-decoration: none;
+}
+
+strong {
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+li {
+	color: #900;
+	font-style: italic;
+}
+
+table {
+	background-color: #f4f4f4;
+}

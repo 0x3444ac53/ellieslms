@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Upload file</title>
+        <script>
+            $(function() {
+                $("#searchSubmit").click(function() {
+                    $.get("get_meta_data", {
+                        title: $("#title").text,
+                        author: $("#author").text,
+                        isbn: $("#isbn").text,
+                        publisher: $("#publisher").text,
+                        publish_date: $("#publish_date").text
+                    }, function(response) {
+                        $("#responseData").text = response;
+                    })
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <h1>New Entry</h1>
+        <div>
+            <label for="title">Title:</label>
+            <input id="title" type="text" name="title" label="Title">
+            <br>
+            <label for="author">Author:</label>
+            <input id="author" type="text" label="Author" name="author">
+            <br>
+            <label for="isbn">ISBN:</label>
+            <input id='isbn' type="text" label="ISBN" name="isbn">
+            <br>
+            <label for="publisher">Publisher:</label>
+            <input id="publisher" type="text" label="Publisher" name="publisher">
+            <br>
+            <label for="publish_date">Publish Date:</label>
+            <input id="publish_date" type="text" label="Publish Date" name="publish date">
+        </div>
+        <div id="responseData">
+        </div>
+        <button id="searchSubmit" >Search</button>
+    </body>
+</html>

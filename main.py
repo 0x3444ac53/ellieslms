@@ -41,7 +41,7 @@ def find_metadata():
             "publishDate": i["volumeInfo"]['publishedDate']
         } for i in results
     ]
-    return results_dict
+    return json.dumps(results_dict)
 
 @app.route('/js/<path:path>')
 def sildnd_js(path):

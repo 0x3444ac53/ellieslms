@@ -11,10 +11,22 @@
                         title: $("#title").val(), 
                         author: $("#author").val(),
                         isbn: $("#isbn").val(),
-                    }, function(results, textStatus, jqXHR) {
-                        var result = jQuery.parseJSON(results);
-                        ul = $("#searchResults");
-                        console.log(result)
+                    }, function(resultString, textStatus, jqXHR) {
+                        var results = jQuery.parseJSON(resultString);
+                        resultsContainer = $("#searchResults");
+                        results.forEach(function(book) {
+                            entry = $("<div><span style=\"font-style: italic\">" + book.title + "</span>, " + book.authors + " </div>");
+                            button = $("<button />", {
+                                text: "Add to database",
+                                click: function() {
+                                    $.post("/new_entry", book, function(result) {
+                                        console.log(result);
+                                    });
+                                }
+                            })
+                            resultsContainer.append(entry);
+                            entry.append(button);
+                        })
                     });
                 });
                 });
@@ -39,8 +51,8 @@
         </form>
         <br>
         <button id="search" >Search</button>
-        <ul id="searchResults">
+        <div id="searchResults">
             
-        </ul>
+        </div>
     </body>
 </html>

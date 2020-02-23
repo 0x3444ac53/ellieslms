@@ -8,6 +8,24 @@ body {
 	padding: 0;
 }
 
+.left {
+	position: relative;
+	width: 50%;
+	float: left;
+	height: 60%;
+	background-color: #f4f7ff;
+	z-index: 10101010;
+}
+
+.right {
+	position: relative;
+	width: 50%;
+	float: left;
+	height: 60%;
+	background-color: #f4f7ff;
+	z-index: 10101010;
+}
+
 p {
 	line-height: 21px;
 }

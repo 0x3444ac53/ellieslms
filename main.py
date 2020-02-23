@@ -30,17 +30,21 @@ def send_style_file(path):
 @app.route('/get_meta_data')
 def find_metadata():
     title = request.args.get('title')
+    print(title)
     r = rq.get(f'https://www.googleapis.com/books/v1/volumes?q=intitle:{title}')
-    results = json.loads(r.text)['items'][:10]
-    results_dict = [
-        {
-            "title"      : i['volumeInfo']['title'], 
-            "authors"    : ", ".join(i['volumeInfo']['authors']), 
+    results = json.loads(r.text)['items']
+    results_dict = []
+    for i in results:
+        try:
+            results_dict.append(
+            {
+            "title"      : i['volumeInfo']['title'],
+            "authors"    : ", ".join(i['volumeInfo']['authors']),
             "isbn"       : i['volumeInfo']['industryIdentifiers'][0]['identifier'],
-#            "publisher"  : i['volumeInfo']['publisher'],
-#            "publishDate": i["volumeInfo"]['publishedDate']
-        } for i in results
-    ]
+            }
+            )
+        except KeyError:
+            continue
     return json.dumps(results_dict)
 
 @app.route('/js/<path:path>')
@@ -56,4 +60,3 @@ def new_entry():
 
 if __name__ == "__main__":
     app.run(debug=True)
-

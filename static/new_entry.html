@@ -12,6 +12,7 @@
                         author: $("#author").val(),
                         isbn: $("#isbn").val(),
                     }, function(resultString, textStatus, jqXHR) {
+                        $("#searchForm").addClass("hidden");
                         var results = jQuery.parseJSON(resultString);
                         resultsContainer = $("#searchResults");
                         results.forEach(function(book) {
@@ -21,6 +22,8 @@
                                 click: function() {
                                     $.post("/new_entry", book, function(result) {
                                         console.log(result);
+                                        $("#searchForm").removeClass("hidden");
+                                        $("#searchResults").empty();
                                     });
                                 }
                             })
@@ -33,24 +36,26 @@
         </script>
     </head>
     <body>
-        <h1>New Entry</h1>
-        <form method="post">
-            <label for="title">Title:</label>
-            <input id="title" type="text" name="title" label="Title">
+        <div id="searchForm">
+            <h1>New Entry</h1>
+            <form method="post">
+                <label for="title">Title:</label>
+                <input id="title" type="text" name="title" label="Title">
+                <br>
+                <label for="author">Author:</label>
+                <input id="author" type="text" label="Author" name="author">
+                <br>
+                <label for="isbn">ISBN:</label>
+                <input id='isbn' type="text" label="ISBN" name="isbn">
+                <br>
+                <input id='publisher' type='hidden' name=publisher>
+                <input id='publishedDate' type='hidden' name=publisher>
+                <br>
+                <input type='submit' id="timetosubmitthisbitch" value='add entry'>
+            </form>
             <br>
-            <label for="author">Author:</label>
-            <input id="author" type="text" label="Author" name="author">
-            <br>
-            <label for="isbn">ISBN:</label>
-            <input id='isbn' type="text" label="ISBN" name="isbn">
-            <br>
-            <input id='publisher' type='hidden' name=publisher>
-            <input id='publishedDate' type='hidden' name=publisher>
-            <br>
-            <input type='submit' id="timetosubmitthisbitch" value='add entry'>
-        </form>
-        <br>
-        <button id="search" >Search</button>
+            <button id="search">Search</button>
+        </div>
         <div id="searchResults">
             
         </div>

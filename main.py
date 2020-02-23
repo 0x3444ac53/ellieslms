@@ -16,16 +16,12 @@ firebaseConfig = {
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
-users = db.child("harry potter").get()
-
-print("tes!!t")
-print(users.val())
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return send_from_directory('static/landing_page.html')
+    return send_from_directory('static/', 'landing_page.html')
 
 @app.route('/styles/<path:path>')
 def send_style_file(path):
@@ -49,17 +45,16 @@ def find_metadata():
     return json.dumps(results_dict)
 
 @app.route('/js/<path:path>')
-def send_js(path):
+def sildnd_js(path):
     return send_from_directory('static/js', path)
 
 @app.route('/new_entry', methods=['GET', 'POST'])
 def new_entry():
     if request.method == "GET":
         return send_from_directory("forms", "new_entry.html")
-    return str(request.form.get('title'))
+    db.child('books').push(request.form.to_dict())
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
 

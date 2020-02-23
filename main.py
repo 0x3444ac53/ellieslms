@@ -50,7 +50,7 @@ def sildnd_js(path):
 @app.route('/new_entry', methods=['GET', 'POST'])
 def new_entry():
     if request.method == "GET":
-        return send_from_directory("forms", "new_entry.html")
+        return send_from_directory("static", "new_entry.html")
     db.child('books').push(request.form.to_dict())
 
 

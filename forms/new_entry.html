@@ -4,7 +4,6 @@
     <title>Upload file</title>
   </head>
   <body>
-    <ul>
       <h1>New Entry</h1>
       <form method='post' enctype=multipart/formdata>
     <label for="title">Title:</label>
@@ -18,4 +17,19 @@
     <br>
     <input type="submit" value="Submit">
   </form>
-  </body></html>
+    <button id="searchSubmit" >Search</button>
+    <script>
+      console.log('works');
+      setTimeout(function () {
+        console.dir(document.getElementById('searchSubmit'));
+        document.getElementById('searchSubmit').onclick = function (){
+        var title = document.getElementById('title');
+        var author = document.getElementById('author');
+        var isbn = document.getElementById('isbn');
+        console.log(title);
+        };
+      }, 2000);
+      console.log("FUCK");
+    </script>
+    </body>
+  </html>

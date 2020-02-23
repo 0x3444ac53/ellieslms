@@ -1,8 +1,10 @@
-from flask import Flask, request, send_from_directory, render_template
+from flask import Flask, request, send_from_directory, render_template, send_file
 import pyrebase
 import json
 import requests as rq
 from urllib.parse import quote_plus
+from random import randint
+
 
 firebaseConfig = {
   "apiKey": "AIzaSyCW5qlAvA2_OJkBwThVmYBx5dTclukt-KE",
@@ -23,6 +25,16 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return send_from_directory('static/', 'landing_page.html')
+
+@app.route('/download')
+def download():
+         send_file(request.args.get("file"), as_attachment=True)
+
+@app.route('/browse')
+def browse():
+    books = [ db.child(i).get().val() for i in db.shallow().get().val() ]
+    print(books)
+    return render_template('browse.html', books=books)
 
 @app.route('/styles/<path:path>')
 def send_style_file(path):
@@ -58,7 +70,7 @@ def find_metadata():
             )
         except KeyError:
             continue
-    return json.dumps(results_dict[0])
+    return json.dumps(results_dict)
 
 @app.route('/js/<path:path>')
 def sildnd_js(path):
@@ -69,7 +81,11 @@ def new_entry():
     if request.method == "GET":
         return send_from_directory("static", "new_entry.html")
     formdata = request.form.to_dict()
-    db.child('books').push(formdata)
+    isbn = formdata['isbn']
+    if isbn:
+        db.child(isbn).set(formdata)
+    else:
+        db.child(randint(200, 200000)).set(formdata)
     return "<h1>Success</h1><br><a id='again' href='/new_entry'>Submit another?</a>"
 
 

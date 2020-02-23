@@ -2,26 +2,10 @@
 <html lang="en">
     <head>
         <title>Upload file</title>
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                $("#searchSubmit").click(function() {
-                    $.get("get_meta_data", {
-                        title: $("#title").text,
-                        author: $("#author").text,
-                        isbn: $("#isbn").text,
-                        publisher: $("#publisher").text,
-                        publish_date: $("#publish_date").text
-                    }, function(response) {
-                        $("#responseData").text = response;
-                    })
-                })
-            })
-        </script>
     </head>
     <body>
         <h1>New Entry</h1>
-        <div>
+        <form method="post">
             <label for="title">Title:</label>
             <input id="title" type="text" name="title" label="Title">
             <br>
@@ -31,14 +15,32 @@
             <label for="isbn">ISBN:</label>
             <input id='isbn' type="text" label="ISBN" name="isbn">
             <br>
-            <label for="publisher">Publisher:</label>
-            <input id="publisher" type="text" label="Publisher" name="publisher">
+            <input id='publisher' type='hidden' name=publisher>
+            <input id='publishedDate' type='hidden' name=publisher>
             <br>
-            <label for="publish_date">Publish Date:</label>
-            <input id="publish_date" type="text" label="Publish Date" name="publish date">
-        </div>
-        <div id="responseData">
-        </div>
+            <input type='submit' id="timetosubmitthisbitch" value='add entry'>
+        </form>
+        <br>
         <button id="searchSubmit" >Search</button>
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#searchSubmit").click(
+                  function() {
+                    $.get('/get_meta_data', {
+                      title: $("#title").val(), 
+                      author: $("#author").val(),
+                      isbn: $("#isbn").val(),
+                    }, function(results, textStatus, jqXHR) {
+                      var result = jQuery.parseJSON(results);
+                      $("#title").val(result.title),
+                      $("#author").val(result.authors),
+                      $("#isbn").val(result.isbn),
+                      $("#publisher").val(result.publisher),
+                      $("#publishedDate").val(result.publishedDate)
+                    });
+                });
+                });
+        </script>
     </body>
 </html>

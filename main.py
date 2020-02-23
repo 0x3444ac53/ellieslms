@@ -30,8 +30,7 @@ def send_style_file(path):
 @app.route('/get_meta_data')
 def find_metadata():
     title = request.args.get('title')
-    author = request.args.get('author')
-    r = rq.get(f'https://www.googleapis.com/books/v1/volumes?q=')
+    r = rq.get(f'https://www.googleapis.com/books/v1/volumes?q=intitle:{title}')
     results = json.loads(r.text)['items'][:10]
     results_dict = [
         {
@@ -42,7 +41,7 @@ def find_metadata():
             "publishDate": i["volumeInfo"]['publishedDate']
         } for i in results
     ]
-    return json.dumps(results_dict)
+    return results_dict
 
 @app.route('/js/<path:path>')
 def sildnd_js(path):

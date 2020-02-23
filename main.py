@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return send_from_directory('static/', 'landing_page.html')
+    return send_from_directory('static/', 'new_entry.html')
 
 @app.route('/browse')
 def browse():

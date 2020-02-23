@@ -26,10 +26,6 @@ app = Flask(__name__)
 def hello_world():
     return send_from_directory('static/', 'landing_page.html')
 
-@app.route('/download')
-def download():
-         send_file(request.args.get("file"), as_attachment=True)
-
 @app.route('/browse')
 def browse():
     books = [ db.child(i).get().val() for i in db.shallow().get().val() ]

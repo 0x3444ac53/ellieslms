@@ -29,7 +29,6 @@ def hello_world():
 @app.route('/browse')
 def browse():
     books = [ db.child(i).get().val() for i in db.shallow().get().val() ]
-    print(books)
     return render_template('browse.html', books=books)
 
 @app.route('/styles/<path:path>')

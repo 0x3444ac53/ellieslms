@@ -37,8 +37,8 @@ def find_metadata():
             "title"      : i['volumeInfo']['title'], 
             "authors"    : ", ".join(i['volumeInfo']['authors']), 
             "isbn"       : i['volumeInfo']['industryIdentifiers'][0]['identifier'],
-            "publisher"  : i['volumeInfo']['publisher'],
-            "publishDate": i["volumeInfo"]['publishedDate']
+#            "publisher"  : i['volumeInfo']['publisher'],
+#            "publishDate": i["volumeInfo"]['publishedDate']
         } for i in results
     ]
     return json.dumps(results_dict)

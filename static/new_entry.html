@@ -2,6 +2,35 @@
 <html lang="en">
     <head>
         <title>Upload file</title>
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#search").click(
+                  function() {
+                    $.get('/get_meta_data', {
+                        title: $("#title").val(), 
+                        author: $("#author").val(),
+                        isbn: $("#isbn").val(),
+                    }, function(resultString, textStatus, jqXHR) {
+                        var results = jQuery.parseJSON(resultString);
+                        resultsContainer = $("#searchResults");
+                        results.forEach(function(book) {
+                            entry = $("<div><span style=\"font-style: italic\">" + book.title + "</span>, " + book.authors + " </div>");
+                            button = $("<button />", {
+                                text: "Add to database",
+                                click: function() {
+                                    $.post("/new_entry", book, function(result) {
+                                        console.log(result);
+                                    });
+                                }
+                            })
+                            resultsContainer.append(entry);
+                            entry.append(button);
+                        })
+                    });
+                });
+                });
+        </script>
     </head>
     <body>
         <h1>New Entry</h1>
@@ -21,26 +50,9 @@
             <input type='submit' id="timetosubmitthisbitch" value='add entry'>
         </form>
         <br>
-        <button id="searchSubmit" >Search</button>
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#searchSubmit").click(
-                  function() {
-                    $.get('/get_meta_data', {
-                      title: $("#title").val(), 
-                      author: $("#author").val(),
-                      isbn: $("#isbn").val(),
-                    }, function(results, textStatus, jqXHR) {
-                      var result = jQuery.parseJSON(results);
-                      $("#title").val(result.title),
-                      $("#author").val(result.authors),
-                      $("#isbn").val(result.isbn),
-                      $("#publisher").val(result.publisher),
-                      $("#publishedDate").val(result.publishedDate)
-                    });
-                });
-                });
-        </script>
+        <button id="search" >Search</button>
+        <div id="searchResults">
+            
+        </div>
     </body>
 </html>

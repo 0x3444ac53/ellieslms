@@ -1,29 +1,66 @@
+hr {
+    display: block;
+    border-style: double;
+    border-width: thin;
+    color: #A67B5B;
+    width: 20%;
+    margin-bottom: 5em;
+    margin-left: 0;
+}
+
 body {
 	font-family: arial, helvetica, sans-serif;
 	font-size:14px;
 	color: black;
-	background-color: #f3ffec;
+	/*background-color: #f3ffec;*/
 	/*background-color: #f7ffed*/
-	margin: 20px;
+    background-color: aqua;
+	margin: 40px;
 	padding: 0;
 }
 
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  
+  top: 20;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
 .left {
-	position: relative;
-	width: 50%;
-	float: left;
-	height: 60%;
+    left: 0;
 	background-color: #f4f7ff;
-	z-index: 10101010;
+
 }
 
 .right {
-	position: relative;
-	width: 50%;
-	float: left;
-	height: 60%;
+	right: 0;
 	background-color: #f4f7ff;
-	z-index: 10101010;
+}
+
+/* If you want the content inside each split screen to be centered, both horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.leftFocus {
+  position: absolute;
+  left: 20%;
+  margin-right: 40px;
+  top: 15%;
+  text-align: left;
+}
+
+.button {
+    background-color: floralwhite;
+    color: cadetblue;
+    border: none;
 }
 
 p {
@@ -35,22 +72,11 @@ h1 {
 }
 
 h2 {
-	fds
-}
-
-img {
-	border-style: dashed;
-	border-width: 2px;
-	border-color: #cc;
+	
 }
 
 a {
 	text-decoration: none;
-}
-
-strong {
-	font-style: italic;
-	text-transform: uppercase;
 }
 
 li {

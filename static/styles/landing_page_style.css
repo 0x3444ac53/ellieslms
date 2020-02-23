@@ -1,0 +1,208 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background: #f4f7ff;
+}
+
+header::after {
+    content: '';
+    display: grid;
+    clear: both;
+}
+
+.hidden {
+    display: none;
+}
+
+.logo {
+    float: left;
+    padding: 20px;
+    width: 200px;
+    color: lightpink;
+}
+
+nav {
+    float: right;
+    flex: 1 1 40%;
+}
+
+nav ul {
+    margin: 0;
+    list-style: none;
+}
+
+/*remove stack, put in a line...*/
+nav li {
+    /*float: left;*/
+    display: inline-block; /*in line and more versatile- can use different text-align*/
+    margin-left: 15px;
+    padding-top: 50px;
+    
+    position: relative;
+}
+
+nav a {
+    color: #444;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+nav a: hover {
+    color: #000;
+}
+
+/*in the link before the text*/
+nav a::before {
+    content: '';
+    display: block;
+    height: 1.5px;
+    width: 70%; 
+    /*if width is 100% I need to add top:0*/
+    background-color: #A67B5B; /*bright pink #FB607F*/
+    
+    position: absolute;
+    
+    transition: all ease-in-out 250ms;
+   
+}
+
+nav a:hover::before {
+    width: 0;
+}
+
+hr {
+    display: block;
+    border-style: double;
+    border-width: thin;
+    color: #A67B5B;
+    width: 20%;
+    margin-bottom: 2em;
+    margin-left: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 20;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: #e6ffe6;
+  padding: 8%;
+  padding-bottom: 25%;
+  box-sizing: border-box;
+  font-family: 'Major Mono Display', sans-serif;
+  
+  
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color: #f4f7ff;
+  font-family: 'Major Mono Display', sans-serif;
+}
+
+.leftFocus {
+  position: absolute;
+  left: 20%;
+  margin-right: 40px;
+  top: 10%;
+  text-align: left;
+}
+
+.left-content {
+    background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    color:444;
+    font-family: monospace, sans-serif;
+	line-height: 40px;
+   
+}
+
+    /* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.button {
+    background-color: floralwhite;
+    color: cadetblue;
+    border: none;
+}
+
+input[type="text"] {
+    background-color: floralwhite;
+    font-family: monospace, sans-serif;
+    color: cadetblue;
+    border: none;
+    height: 18px;
+}
+
+label[for="title"] {
+    font-family: monospace, sans-serif;
+}
+
+label[for="author"] {
+    font-family: monospace, sans-serif;
+    color: ;
+}
+
+label[for="isbn"] {
+    font-family: monospace, sans-serif;
+    color: ;
+}
+
+p {
+    font-family: monospace, sans-serif;
+	line-height: 21px;
+}
+
+h1 {
+	font-family: monospace, sans-serif;
+}
+
+h2 {
+	font-family: monospace, sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+label {
+    font-family: 'Major Mono Display', sans-serif;
+}
+
+strong {
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+li {
+	color: #900;
+	font-style: italic;
+}
+
+table {
+	background-color: #f4f4f4;
+}

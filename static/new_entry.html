@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <title>Upload file</title>
+        <title>Landing Page</title>
+        <link rel="stylesheet" href="styles/landing_page_style.css" type="text/css">
+        
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -36,8 +38,24 @@
         </script>
     </head>
     <body>
-        <div id="searchForm">
-            <h1>New Entry</h1>
+        <header>
+        <div class="container">
+            <a href="landing_page.html" alt="logo" class="logo">
+                <p> b i b l i o LBGT</p>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="new_entry.html"><p>ADD ENTRY</p></a></li>
+                    <li><a href="/browse"><p>BOOK SEARCH</p></a></li>
+                </ul>
+            </nav>
+        </div>
+        </header>
+        
+        <div class="container">
+            <div class="split left">
+                <div class="left-content">
+                    <div id="searchForm">
             <form method="post">
                 <label for="title">Title:</label>
                 <input id="title" type="text" name="title" label="Title">
@@ -50,14 +68,23 @@
                 <br>
                 <input id='publisher' type='hidden' name=publisher>
                 <input id='publishedDate' type='hidden' name=publisher>
-                <br>
+                
                 <input type='submit' id="timetosubmitthisbitch" value='add entry'>
             </form>
-            <br>
             <button id="search">Search</button>
         </div>
         <div id="searchResults">
             
+        </div>
+                </div>
+            </div>
+            <div class="split right">
+                <div class="leftFocus">
+                    <h2>BibliLGBT</h2>
+                    <hr>
+                    <p>A small description could go here about what we made.</p>
+                </div>
+            </div>
         </div>
     </body>
 </html>

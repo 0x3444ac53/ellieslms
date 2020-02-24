@@ -1,35 +1,23 @@
 from flask import Flask, request, send_from_directory, render_template, send_file
-import pyrebase
 import json
 import requests as rq
 from urllib.parse import quote_plus
 from random import randint
+import pickle
 
-
-firebaseConfig = {
-  "apiKey": "AIzaSyCW5qlAvA2_OJkBwThVmYBx5dTclukt-KE",
-  "authDomain": "biblilgbt.firebaseapp.com",
-  "databaseURL": "https://biblilgbt.firebaseio.com",
-  "projectId": "biblilgbt",
-  "storageBucket": "biblilgbt.appspot.com",
-  "messagingSenderId": "169445643632",
-  "appId": "1:169445643632:web:135cef1726227e0c4d6bb5",
-  "measurementId": "G-SRSQXYC19F"
-};
-
-firebase = pyrebase.initialize_app(firebaseConfig)
-db = firebase.database()
+with open('basically_firebase', 'rb') as f:
+    faster_firebase = pickle.load(f)
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return send_from_directory('static/', 'new_entry.html')
+    return send_from_directory('static/', 'homepage.html')
 
 @app.route('/browse')
 def browse():
-    books = [ db.child(i).get().val() for i in db.shallow().get().val() ]
-    return render_template('browse.html', books=books)
+    params = request.args.to_dict()
+    return json.dumps([ i for i in filter(lambda x: params['title'] in x['title'].lower(), faster_firebase.values())])
 
 @app.route('/styles/<path:path>')
 def send_style_file(path):
@@ -78,10 +66,12 @@ def new_entry():
     formdata = request.form.to_dict()
     isbn = formdata['isbn']
     if isbn:
-        db.child(isbn).set(formdata)
+        faster_firebase[isbn] = formdata
     else:
-        db.child(randint(200, 200000)).set(formdata)
-    return "<h1>Success</h1><br><a id='again' href='/new_entry'>Submit another?</a>"
+        faster_firebase[str(randint(200, 200000))] = formdata
+    with open('basically_firebase', 'wb') as f:
+        pickle.dump(faster_firebase, f)
+    return send_from_directory("static", "new_entry.html")
 
 
 if __name__ == "__main__":

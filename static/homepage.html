@@ -8,7 +8,7 @@
             $(document).ready(function() {
                 $("#search").click(
                   function() {
-                    $.get('/get_meta_data', {
+                    $.get('/browse', {
                         title: $("#title").val(), 
                         author: $("#author").val(),
                         isbn: $("#isbn").val(),
@@ -17,21 +17,8 @@
                         var results = jQuery.parseJSON(resultString);
                         resultsContainer = $("#searchResults");
                         results.forEach(function(book) {
-                            entry = $("<div><span style=\"font-style: italic\">" + book.title + "</span>, " + book.authors + " </div>");
-                            button = $("<button />", {
-                                text: "This One!",
-                                click: function() {
-                                        console.log(results);
-                                        $("#title").val(book.title);
-                                        $("#author").val(book.authors);
-                                        $("#isbn").val(book.isbn);
-                                        $("#publisher").val(book.publisher);
-                                        $("#publishedDate").val(book.publishedDate);
-                                        $("#searchForm").removeClass("hidden");
-                                        $("#searchResults").empty();
-                                }});
+                            entry = $("<div><span style=\"font-style: italic\">" + book.title + "</span>, " + book.author + " </div>");
                             resultsContainer.append(entry);
-                            entry.append(button);
                             })
                         });
                 });
@@ -41,13 +28,13 @@
     <body>
         <header>
         <div class="container">
-            <a href="landing_page.html" alt="logo" class="logo">
+            <a href="/" alt="logo" class="logo">
                 <p> b i b l i o LBGT</p>
             </a>
             <nav>
                 <ul>
                     <li><a href="new_entry.html"><p>ADD ENTRY</p></a></li>
-                    <li><a href="/browse"><p>BOOK SEARCH</p></a></li>
+                    <li><a href="/"><p>BOOK SEARCH</p></a></li>
                 </ul>
             </nav>
         </div>
@@ -66,24 +53,20 @@
                 <label for="isbn">ISBN:</label>
                 <input id='isbn' type="text" label="ISBN" name="isbn">
                 <br>
-                <input id='publisher' type='hidden' name=publisher>
-                <input id='publishedDate' type='hidden' name=publishedDate>
-                <input type='submit' id="timetosubmitthisbitch" value='add entry'>
             </form>
             <button id="search">Search</button>
         </div>
                 </div>
             </div>
             <div class="split right">
-                <div class="leftFocus">
-                    <div id="greeting">
+              <div class="leftFocus">
+                <div id="greeting">
                     <h2>BibliLGBT</h2>
                     <hr>
-                    <p>A small description could go here about what we made.</p>
-                    </div>
-                <div id="searchResults">
+                    <p>Welcome to my small gay library.</p>
                 </div>
-            </div>
+                <div id="searchResults"></div>
+              </div>
             </div>
         </div>
     </body>

@@ -65,6 +65,18 @@ def new_entry():
         return send_from_directory("static", "new_entry.html")
     formdata = request.form.to_dict()
     isbn = formdata['isbn']
+    try:
+        formdata['print']
+        formdata.pop("formats")
+        formdata['type'] = "print"
+        formdata.pop('print')
+    except KeyError:
+        formdata['digital']
+        formdata.pop("numberOfCopies")
+        formdata.pop("owner")
+        formdata['type'] = "digital"
+        formdata.pop("digital")
+        formdata['formats'] = formdata['formats'].lower().split(',')
     if isbn:
         faster_firebase[isbn] = formdata
     else:

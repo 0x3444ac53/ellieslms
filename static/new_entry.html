@@ -5,38 +5,18 @@
         <link rel="stylesheet" href="styles/landing_page_style.css" type="text/css">
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
-            $(document).ready(function() {
-                $("#search").click(
-                  function() {
-                    $.get('/get_meta_data', {
-                        title: $("#title").val(), 
-                        author: $("#author").val(),
-                        isbn: $("#isbn").val(),
-                    }, function(resultString, textStatus, jqXHR) {
-                        $("#greeting").addClass("hidden");
-                        var results = jQuery.parseJSON(resultString);
-                        resultsContainer = $("#searchResults");
-                        results.forEach(function(book) {
-                            entry = $("<div><span style=\"font-style: italic\">" + book.title + "</span>, " + book.authors + " </div>");
-                            button = $("<button />", {
-                                text: "This One!",
-                                click: function() {
-                                        console.log(results);
-                                        $("#title").val(book.title);
-                                        $("#author").val(book.authors);
-                                        $("#isbn").val(book.isbn);
-                                        $("#publisher").val(book.publisher);
-                                        $("#publishedDate").val(book.publishedDate);
-                                        $("#searchForm").removeClass("hidden");
-                                        $("#searchResults").empty();
-                                }});
-                            resultsContainer.append(entry);
-                            entry.append(button);
-                            })
-                        });
-                });
-                });
+          function bookTypes(){
+            if ($("#print").prop("checked")){
+              $("#owner").val("admin");
+              $("#printOptions").removeClass("hidden");
+              $("#digitalOptions").addClass("hidden")
+            } else if ($("#digital").prop("checked")){
+              $("#printOptions").addClass("hidden");
+              $("#digitalOptions").removeClass("hidden")
+            }
+          }
         </script>
+        <script type="text/javascript" src="/js/googleBookSearch.js"></script>
     </head>
     <body>
         <header>
@@ -66,7 +46,31 @@
                 <label for="isbn">ISBN:</label>
                 <input id='isbn' type="text" label="ISBN" name="isbn">
                 <br>
+                <p>Type:</p>
+                <input id="print" type="radio" name="print" onclick="bookTypes()">
+                <label for="print">Print</label>
+                <input id="digital" type="radio" name="digital" onclick="bookTypes()">
+                <label for="digital">Digital</label>
+                <br>
+                <div class="hidden" id="digitalOptions">
+                  <label for="fileFormats">Formats:</label>
+                  <input type="text" id="fileFormats" name="formats">
+                </div>
+                <div class="hidden" id="printOptions">
+                <label for="copies">Copies:</label>
+                <select id="copies" name="numberOfCopies">
+                </select>
+                <script>
+                $(function(){
+                  var $select = $("#copies");
+                  for (i=1;i<=100;i++){
+                      $select.append($('<option></option>').val(i).html(i))
+                  }
+                })
+                </script>
+                </div>
                 <input id='publisher' type='hidden' name=publisher>
+                <input id='owner' type='hidden' name="owner">
                 <input id='publishedDate' type='hidden' name=publishedDate>
                 <input type='submit' id="timetosubmitthisbitch" value='add entry'>
             </form>

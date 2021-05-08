@@ -1,7 +1,7 @@
 ```
-git clone https://github.com/Lifesgood123/pearlhacks2020
+git clone https://github.com/Lifesgood123/ellieslms
 
-cd pearlhacks2020/server/src
+cd ellieslms
 
 python3 -m venv .; source bin/activate
 
